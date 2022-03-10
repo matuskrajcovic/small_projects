@@ -6,3 +6,4 @@
 | [Minesweeper](/source/minesweeper) | Vue.js version |
 | [SK covid data visualizations](/source/covid_pandas_visualization/korona.ipynb) | Pandas visualizations of several covid metrics in Slovakia. |
 | [SK covid data visualizations](/source/covid_js_visualization) | JavaScript version. |
+| [Cheatsheets](/source/cheatsheets) | Cheatsheets created for various languages. |
