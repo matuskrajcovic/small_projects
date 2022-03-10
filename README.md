@@ -1,5 +1,6 @@
 | My small projects | Description |
 | --- | --- |
+| [Personal website](https://matuskrajcovic.sk/) | Simple personal website in PHP, HTML, CSS and JavaScript. |
 | [First Vue.js app](/source/first_vue_app/vue.html) | Simple Vue.js note list application with all basic principles used and described in a form of tutorial. |
 | [Minesweeper](/source/minesweeper) | Javascript version of simple minesweeper game. |
 | [Minesweeper](/source/minesweeper) | Vue.js version |
