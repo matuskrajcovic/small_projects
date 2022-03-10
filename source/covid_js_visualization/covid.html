@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>
+			COVID DATA
+		</title>
+		<link rel="stylesheet" href="covid.css">
+	</head>
+	<body>
+		<main id="covid">
+			<h1>.covid</h1>
+			<h2>Zo včera</h2>
+			<section id="tiles">
+				<div>Nových prípadov:</br><span id="infected-daily"></span></div>
+				<div>Podiel pozitívnych:</br><span id="percentage"></span></div>
+				<div>Testovaných:</br><span id="tested-daily"></span></div>
+				<div>Úmrtí:</br><span id="deaths-daily"></span></div>
+			</section>
+			<section id="charts">
+				<h2>Grafy</h2>
+				<h3>Denný počet pozitívnych prípadov</h3>
+				<div class="chart-container"><canvas id="chart1"></canvas></div>
+				<h3>7-dňový priemer počtu pozitívnych prípadov</h3>
+				<div class="chart-container"><canvas id="chart2"></canvas></div>
+				<h3>7-dňový priemer zmeny počtu prípadov</h3>
+				<div class="chart-container"><canvas id="chart3"></canvas></div>
+				<h3>Denná pozitivita</h3>
+				<div class="chart-container"><canvas id="chart4"></canvas></div>
+				<h3>7-dňový priemer pozitivity (%)</h3>
+				<div class="chart-container"><canvas id="chart5"></canvas></div>
+				<h3>Celkový počet pozitívnych prípadov</h3>
+				<div class="chart-container"><canvas id="chart6"></canvas></div>
+				<p>Zdroj dát: <a href="https://mapa.covid.chat/">https://mapa.covid.chat/</a></p>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="covid.js"></script>
+	</body>
+</html>

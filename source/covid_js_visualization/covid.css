@@ -1,0 +1,128 @@
+/*variables*/
+
+:root {
+    --main-color: rgb(233, 233, 233);
+    --second-color: rgb(170, 170, 170);
+    --main-background-color: rgb(32, 33, 36);
+    --second-background-color: rgb(50, 51, 54);
+    --main-highlight-color: rgb(197, 163, 241);
+    --main-font-size: 22px;
+}
+
+/*global*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--main-background-color);
+    color: var(--main-color);
+    font-size: var(--main-font-size);
+    font-family: "Arial";
+    line-height: 1.8;
+}
+
+/*font size*/
+
+body {
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 700px) {
+    body {
+        font-size: 0.95rem;
+    }
+}
+
+@media only screen and (max-width: 700px)  {
+    body {
+        font-size: 0.8rem;
+    }
+}
+
+
+/*headings*/
+
+h1 {
+    margin: 10px 0 20px 0;
+    font-weight: 800;
+    font-size: 2.7em;
+}
+
+h2 {
+    margin: 10px 0 15px 0;
+    font-weight: 600;
+    font-size: 1.7em;
+}
+
+h3 {
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+h4 {
+    margin: 10px 0;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+/* covid */
+
+main {
+	margin: 20px 100px;
+}
+
+#covid #tiles{
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	width: fit-content;
+}
+
+#covid #charts div.chart-container {
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	padding: 30px;
+	margin-bottom: 50px;
+}
+
+#covid #tiles div{
+	background-color: var(--second-background-color);
+	padding: 10px;
+	border-radius: 20px;
+	/*margin: 0 20px 20px 0;*/
+	text-align: center;
+}
+
+#covid #tiles div span{
+	font-weight: 700;
+	font-size: 2rem;
+}
+
+@media only screen and (max-width: 1300px){
+	#covid #charts div.chart-container {
+		padding: 5px;
+		border-radius: 10px;
+	}
+	main {
+		margin: 10px;
+	}
+}
+
+@media only screen and (max-width: 1000px){
+	#covid #tiles{
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media only screen and (max-width: 700px){
+	#covid #tiles{
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	
+}

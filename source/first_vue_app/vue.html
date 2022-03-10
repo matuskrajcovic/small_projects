@@ -1,0 +1,217 @@
+<!-- 
+    This is a simple note taking app created with Vue.js.
+    It uses and describes basic Vue.js concepts.
+
+    Vue.js is a progressive framework for building user interfaces. 
+    You can read more about it at https://v3.vuejs.org/guide/introduction.html.
+ -->
+<html lang="en">
+    <head>
+        <title>
+            MY FIRST VUE APP
+        </title>
+
+        <!-- v-cloak attribute explained below -->
+        <style>
+            [v-cloak] {
+                display: none
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 
+            The 'main' element is the only static HTML code on this page.
+            It is a container on which a Vue.js app will be mounted and contains a 
+            'note-list' component.
+            Special v-cloak directive resolves an issue, in which content before
+            injection is rendered onto the screen e.g. without it, you will see the variable 
+            name instead of its value for a short time on page refresh.
+        -->
+        <main id="app" v-cloak>
+            <note-list />
+        </main>
+
+        <!-- We load a Vue.js script before our custom script. -->
+        <script src="https://unpkg.com/vue@next"></script>
+
+        <!-- Custom script with the Vue.js app and it's components. -->
+        <script>
+
+            // We create a Vue app containing the 'note-list' component
+            let app = Vue.createApp({
+
+                // All components used directly in the app (<main id="app">).
+                compoments: [
+                    'note-list'
+                ]
+            });
+
+            /* 
+                We mount the 'note-list' component and define it's template, variables,
+                 methods and other, inner components.
+            */
+            app.component('note-list', {
+
+                /* 
+                    Template which will be injected into the page instead of <note-list /> tag.
+                    Many 'v-' directives are used (values of the directives (we use "variable") are component 
+                    variables/methods or javascript code):
+                        {{ variable }}				prints variable's value
+                        v-if="variable"				shows the element if variable is true
+                        v-else						if previous v-if is false, show this element instead
+                        v-show="variable"			same as v-if, but element is just hidden, not removed
+                        v-for="item in variable"	iterate over variable (array) and print an element for each item
+                        v-bind:name="variable"		bind a value (compoment variable) into the custom attribute name, 
+                                                    which also passes this value into child component, if there is any
+                            :name="variable"			shorter notation
+                        v-model="variable"			bind the input value into the compoment variable (variable is
+                                                    changed on input change)
+                        v-on:click="method"			execute a component method on click
+                            @click="method"				shorter notation
+                            @click.prevent.stop			prevent default and stop propagating
+                            @keyup.enter				on enter key press
+                            @submit						on submit
+                */
+                /* 
+                    In the template, we print all notes using 'note' component, if there are not any,
+                    we print a 'THERE ARE NO NOTES' message.
+                    After that, we print all predefined inputs from 'inputs' variable using 'note-input' component.
+                    We assign a component method 'addNote' upon clicking on the button.
+                */
+                template: `
+                    <section>
+                        <h1>MY NOTE LIST</h1>
+                        <h2>My notes</h2>
+                        <section v-if="notes.length > 0">
+                            <ul>
+                                <note 
+                                    v-for="(note, index) in notes" 
+                                    v-bind:note="note" 
+                                    v-bind:key="index">
+                                </note>
+                            </ul>
+                        </section>
+                        <p v-else>
+                            THERE ARE NO NOTES
+                        </p>
+                        <h2>Add new note</h2>
+                        <section>
+                            <note-input 
+                                v-for="input in inputs" 
+                                v-model="input.value" 
+                                v-bind:label="input.label"
+                                v-bind:key="input.key"
+                            note-input/>
+                            <button @click="addNote">ADD NOTE</button>
+                        </section>
+                    </section>
+                `,
+
+                // Component variables used in the template (notes) or in a method (this.notes)
+                data() {
+                    return {
+                        notes: [
+                            {
+                                heading: 'Note heading',
+                                content: 'Note content'
+                            }
+                        ], 
+                        inputs: [
+                            {
+                                label: 'HEADING',
+                                key: 'heading',
+                                value: ''
+                            },
+                            {
+                                label: 'CONTENT',
+                                key: 'content',
+                                value: ''
+                            }
+                        ]
+                    }
+                },
+
+                /* 
+                    Component methods used to modify the variables.
+                    All modifications are directly rendered into HTML.
+                */
+                methods: {
+                    addNote() {
+                        let newNote = {}
+                        this.inputs.forEach(element => {
+                            newNote[element.key] = element.value;
+                        });
+                        this.notes.push(newNote);
+                    }
+                },
+
+                // We use note and note-input component in the template.
+                compoments: [
+                    'note', 'note-input'
+                ]
+            });
+
+            // Custom component for each note, prints it's heading and content.
+            app.component('note', {
+
+                // Props are data items (imutable) passed from parent components using v-bind.
+                props: ['note'],
+                template: `
+                    <li>
+                        <h3>{{ note.heading }}</h3>
+                        <p>{{ note.content }}</p>
+                    </li>
+                `
+            });
+
+            // Custom component for input.
+            app.component('note-input', {
+
+                /* 
+                    Last modelValue prop is not passed by v-bind, but implicitly passed from v-model directive.
+                    It contains a value of 'input.value' model from 'note-list' component.
+                */
+                props: ['label', 'modelValue'],
+
+                // We create an input field with it's own model ('inputValue').
+                template: `
+                    <div>
+                        <label>{{ label }}</label>
+                        <input 
+                            type="text" 
+                            v-model="inputValue" 
+                            v-on:keyup="logInput"
+                        />
+                    </div>
+                `,
+
+                /*
+                    We bind the 'inputValue' model on the 'input.value' model of the parent component
+                    to send it's value to it (parent component has the note database).
+                    Since 'modelValue' prop is immutable, we can't just assign it the new value, we have to
+                    epit an event to update the variable.
+                */
+                computed: {
+                    inputValue: {
+                        get() { 
+                            return this.modelValue;
+                        },
+                        set(value) { 
+                            this.$emit('update:modelValue', value);
+                        }
+                    }
+                },
+                
+                methods: {
+                    logInput(){
+                        console.log('Changed "' + this.label + '" to: ' + this.modelValue);
+                    }
+                }
+            })
+
+            // Finally, we mount the app into the <main id="app"> tag.
+            app.mount('#app');
+
+        </script>
+    </body>
+</html>
